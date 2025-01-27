@@ -4,13 +4,15 @@ Start texttest from a command prompt in the same folder as this file with this c
 texttest -a sr -d .
 """
 
-import sys, csv
+import csv
+import sys
 from pathlib import Path
 
-from model_objects import Product, SpecialOfferType, ProductUnit
+from model_objects import Product, ProductUnit, SpecialOfferType
 from receipt_printer import ReceiptPrinter
 from shopping_cart import ShoppingCart
 from teller import Teller
+
 from tests.fake_catalog import FakeCatalog
 
 
@@ -18,7 +20,7 @@ def read_catalog(catalog_file):
     catalog = FakeCatalog()
     if not catalog_file.exists():
         return catalog
-    with open(catalog_file, "r") as f:
+    with open(catalog_file) as f:
         reader = csv.DictReader(f)
         for row in reader:
             name = row["name"]
@@ -32,7 +34,7 @@ def read_catalog(catalog_file):
 def read_offers(offers_file, teller):
     if not offers_file.exists():
         return
-    with open(offers_file, "r") as f:
+    with open(offers_file) as f:
         reader = csv.DictReader(f)
         for row in reader:
             name = row["name"]
@@ -46,7 +48,7 @@ def read_basket(cart_file, catalog):
     cart = ShoppingCart()
     if not cart_file.exists():
         return cart
-    with open(cart_file, "r") as f:
+    with open(cart_file) as f:
         reader = csv.DictReader(f)
         for row in reader:
             name = row["name"]

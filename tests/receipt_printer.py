@@ -1,4 +1,4 @@
-from model_objects import ProductUnit
+from supermarket_receipt.model_objects import ProductUnit
 
 
 class ReceiptPrinter:
@@ -30,20 +30,20 @@ class ReceiptPrinter:
     def format_line_with_whitespace(self, name, value):
         line = name
         whitespace_size = self.columns - len(name) - len(value)
-        for i in range(whitespace_size):
+        for _ in range(whitespace_size):
             line += " "
         line += value
         line += "\n"
         return line
 
     def print_price(self, price):
-        return "%.2f" % price
+        return f"{price:.2f}" % price
 
     def print_quantity(self, item):
-        if ProductUnit.EACH == item.product.unit:
+        if item.product.unit == ProductUnit.EACH:
             return str(item.quantity)
         else:
-            return "%.3f" % item.quantity
+            return f"{item.quantity:.3f}"
 
     def print_discount(self, discount):
         name = f"{discount.description} ({discount.product.name})"
