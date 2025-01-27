@@ -1,0 +1,31 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: end-of-file-fixer
+        exclude: "business-facing/layer"
+      - id: trailing-whitespace
+        exclude: "business-facing/layer"
+      - id: check-yaml
+        exclude: "business-facing/layer"
+      - id: check-json
+        exclude: "business-facing/layer"
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+    rev: v0.1.6
+    hooks:
+      # Run the linter.
+      - id: ruff
+        entry: ruff check
+      # Run the formatter.
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: pytest-check
+        name: pytest
+        entry: uvx pytest
+        language: system
+        pass_filenames: false
+        always_run: true

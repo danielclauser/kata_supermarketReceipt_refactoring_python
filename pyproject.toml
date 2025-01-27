@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "supermarket-receipt-kata"
+version = "0.1"
+
+# most requts are deliberately unpinned so we stay up to date with deps,
+# and CI will warn when things change.
+dependencies = [
+    "approvaltests>=14.3.0",
+    "coverage>=7.6.10",
+    "pytest",
+    "ruff>=0.9.3",
+]
+
+[tool.setuptools]
+packages = []
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+    # pylint
+    "PL",
+]
+ignore = [
+    "E741",  # single-letter variable
+    "PLR2004",  # magic values
+]
+[tool.pytest.ini_options]
+pythonpath = [
+  "supermarket_receipt",
+  "."
+  ]
+testpaths = [
+    "tests",
+]
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+
+[tool.uv]
+package = true
